@@ -1,0 +1,12 @@
+{
+  "name": "shoeimaginep",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "setup": "node scripts/setup-local.mjs",
+    "dev": "node scripts/start-local.mjs",
+    "start": "node scripts/start-local.mjs",
+    "package": "node scripts/package-local.mjs"
+  }
+}
