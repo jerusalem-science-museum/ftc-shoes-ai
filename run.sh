@@ -27,6 +27,12 @@ else
   exit 1
 fi
 
+# Disable Ctrl, Alt, Shift at X11 level
+xmodmap -e "keycode 37 = NoSymbol"   # Left Ctrl
+xmodmap -e "keycode 105 = NoSymbol"  # Right Ctrl
+xmodmap -e "keycode 64 = NoSymbol"   # Left Alt
+xmodmap -e "keycode 108 = NoSymbol"  # Right Alt
+
 $CHROMIUM_CMD \
   --kiosk \
   --password-store=basic \
@@ -38,5 +44,5 @@ $CHROMIUM_CMD \
   --disable-gpu-sandbox \
   --disable-background-timer-throttling \
   "$URL" &
-  
+
 wait $DEV_PID
