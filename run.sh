@@ -54,6 +54,7 @@ $CHROMIUM_CMD \
   --kiosk \
   --password-store=basic \
   --use-mock-keychain \
+  --user-data-dir=/tmp/chromium-kiosk \
   --noerrdialogs \
   --disable-infobars \
   --no-sandbox \
