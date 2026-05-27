@@ -53,6 +53,7 @@ fi
 $CHROMIUM_CMD \
   --kiosk \
   --password-store=basic \
+  --use-mock-keychain \
   --noerrdialogs \
   --disable-infobars \
   --no-sandbox \
