@@ -72,6 +72,14 @@ EOF
 echo "  ✓ Autostart entry written to ~/.config/autostart/app.desktop"
 
 # =========================================================================
+# 5. Keyboard layouts: English, Hebrew, Arabic
+# =========================================================================
+echo ""
+echo "=== Configuring keyboard layouts ==="
+gsettings set org.cinnamon.desktop.input-sources sources "[('xkb', 'us'), ('xkb', 'il'), ('xkb', 'ara')]"
+echo "  ✓ Keyboard layouts set to: English (us), Hebrew (il), Arabic (ara)"
+
+# =========================================================================
 # Done
 # =========================================================================
 echo ""
@@ -83,5 +91,6 @@ echo "What was done:"
 echo "  [Node/npm]     Installed/verified Node.js >= $REQUIRED_NODE_MAJOR"
 echo "  [App]          npm run setup completed"
 echo "  [Autostart]    Will auto-launch via run.sh on login"
+echo "  [Keyboard]     Layouts set to English, Hebrew, Arabic"
 echo ""
 echo "Rebooting now is recommended: reboot"

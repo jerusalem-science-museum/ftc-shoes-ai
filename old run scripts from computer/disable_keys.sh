@@ -6,8 +6,8 @@ while true; do
         xmodmap -e "keycode ['] = NoSymbol"
         xmodmap -e "keycode [/] = NoSymbol"
     else
-        xmodmap -e "keycode ['] = slash"  # Revert to default behavior
-        xmodmap -e "keycode [/] = apostrophe"  # Revert to default behavior
+        xmodmap -e "keycode ['] = apostrophe"  # Revert to default behavior
+        xmodmap -e "keycode [/] = slash"  # Revert to default behavior
     fi
     sleep 1  # Check every second
 done
