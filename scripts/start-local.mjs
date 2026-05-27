@@ -42,6 +42,7 @@ function start(name, args, cwd) {
   const child = spawn(npmCommand, args, {
     cwd,
     stdio: ["ignore", "pipe", "pipe"],
+    shell: true,
   });
 
   prefixOutput(name, child.stdout);
