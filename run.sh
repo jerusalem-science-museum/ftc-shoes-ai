@@ -28,24 +28,24 @@ else
 fi
 
 # Disable Ctrl, Super, Esc at X11 level
-xmodmap -e "keycode 37 = NoSymbol"   # Left Ctrl
-xmodmap -e "keycode 105 = NoSymbol"  # Right Ctrl
-xmodmap -e "keycode 133 = NoSymbol"  # Left Super
-xmodmap -e "keycode 134 = NoSymbol"  # Right Super
-xmodmap -e "keycode 9 = NoSymbol"    # Escape
-# Disable F keys
-xmodmap -e "keycode 67 = NoSymbol"   # F1
-xmodmap -e "keycode 68 = NoSymbol"   # F2
-xmodmap -e "keycode 69 = NoSymbol"   # F3
-xmodmap -e "keycode 70 = NoSymbol"   # F4
-xmodmap -e "keycode 71 = NoSymbol"   # F5
-xmodmap -e "keycode 72 = NoSymbol"   # F6
-xmodmap -e "keycode 73 = NoSymbol"   # F7
-xmodmap -e "keycode 74 = NoSymbol"   # F8
-xmodmap -e "keycode 75 = NoSymbol"   # F9
-xmodmap -e "keycode 76 = NoSymbol"   # F10
-xmodmap -e "keycode 95 = NoSymbol"   # F11
-xmodmap -e "keycode 96 = NoSymbol"   # F12
+# xmodmap -e "keycode 37 = NoSymbol"   # Left Ctrl
+# xmodmap -e "keycode 105 = NoSymbol"  # Right Ctrl
+# xmodmap -e "keycode 133 = NoSymbol"  # Left Super
+# xmodmap -e "keycode 134 = NoSymbol"  # Right Super
+# xmodmap -e "keycode 9 = NoSymbol"    # Escape
+# # Disable F keys
+# xmodmap -e "keycode 67 = NoSymbol"   # F1
+# xmodmap -e "keycode 68 = NoSymbol"   # F2
+# xmodmap -e "keycode 69 = NoSymbol"   # F3
+# xmodmap -e "keycode 70 = NoSymbol"   # F4
+# xmodmap -e "keycode 71 = NoSymbol"   # F5
+# xmodmap -e "keycode 72 = NoSymbol"   # F6
+# xmodmap -e "keycode 73 = NoSymbol"   # F7
+# xmodmap -e "keycode 74 = NoSymbol"   # F8
+# xmodmap -e "keycode 75 = NoSymbol"   # F9
+# xmodmap -e "keycode 76 = NoSymbol"   # F10
+# xmodmap -e "keycode 95 = NoSymbol"   # F11
+# xmodmap -e "keycode 96 = NoSymbol"   # F12
 
 # useful: returns layout back to normal.
 # setxkbmap -layout us
