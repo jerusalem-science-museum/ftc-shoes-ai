@@ -171,7 +171,12 @@ const CreatePost = () => {
             return;
           }
 
-          throw new Error(data.message || "Image generation failed");
+          throw new Error(
+            data.message ||
+              (response.status === 404
+                ? "Cannot reach server. Make sure the backend is running (npm run dev)."
+                : "Image generation failed")
+          );
         }
 
         setApiKeyMessage("");
