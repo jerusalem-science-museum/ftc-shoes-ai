@@ -81,10 +81,10 @@ echo ""
 echo "=== Setting up app autostart ==="
 mkdir -p ~/.config/autostart
 
-cat > ~/.config/autostart/app.desktop << EOF
+cat > ~/.config/autostart/shoesai.desktop << EOF
 [Desktop Entry]
 Type=Application
-Name=My Exhibition App
+Name=Shoes AI
 Exec=bash -c '"$SCRIPT_DIR/run.sh"; read'
 Hidden=false
 NoDisplay=false
