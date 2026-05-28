@@ -50,18 +50,36 @@ fi
 # useful: returns layout back to normal.
 # setxkbmap -layout us
 
-$CHROMIUM_CMD \
-  --kiosk \
-  --password-store=basic \
-  --use-mock-keychain \
-  --user-data-dir=/tmp/chromium-kiosk \
-  --noerrdialogs \
-  --disable-infobars \
-  --no-sandbox \
-  --disable-pinch \
-  --disable-dev-shm-usage \
-  --disable-gpu-sandbox \
-  --disable-background-timer-throttling \
-  "$URL" &
+CHROMIUM_FLAGS=(
+  --kiosk
+  --password-store=basic
+  --use-mock-keychain
+  --noerrdialogs
+  --disable-infobars
+  --no-sandbox
+  --disable-pinch
+  --disable-dev-shm-usage
+  --disable-gpu-sandbox
+  --disable-background-timer-throttling
+)
+
+$CHROMIUM_CMD "${CHROMIUM_FLAGS[@]}" --user-data-dir=/tmp/chromium-kiosk "$URL" &
+
+# Open second Chromium window on the screen above the primary
+SECOND_URL="http://127.0.0.1:5173"
+# xrandr gives offset as WxH+X+Y; grab X,Y of the non-primary connected screen
+SECOND_OFFSET=$(xrandr --query 2>/dev/null \
+  | grep ' connected' | grep -v 'primary' | head -1 \
+  | grep -oP '\d+x\d+\+\K\d+\+\d+' | tr '+' ',')
+
+if [ -n "$SECOND_OFFSET" ]; then
+  echo "Launching second Chromium on screen at offset $SECOND_OFFSET"
+  $CHROMIUM_CMD "${CHROMIUM_FLAGS[@]}" \
+    --user-data-dir=/tmp/chromium-kiosk-2 \
+    --window-position="$SECOND_OFFSET" \
+    "$SECOND_URL" &
+else
+  echo "WARNING: No second screen detected — skipping second Chromium window"
+fi
 
 wait $DEV_PID
