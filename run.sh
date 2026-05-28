@@ -20,6 +20,11 @@ done
 
 echo "Server up — launching Chromium in kiosk mode"
 
+# Prevent screen from sleeping/blanking
+xset s off          # disable screensaver
+xset -dpms          # disable Display Power Management (monitor sleep)
+xset s noblank      # disable screen blanking
+
 # Detect which chromium binary is available
 CHROMIUM_CMD=""
 if command -v chromium-browser &>/dev/null; then
