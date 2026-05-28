@@ -47,12 +47,21 @@ cd "$SCRIPT_DIR"
 npm run setup
 
 # =========================================================================
-# 3. Make scripts executable
+# 3. Build client for production
 # =========================================================================
-chmod +x "$SCRIPT_DIR/run.sh"
+echo ""
+echo "=== Building client ==="
+cd "$SCRIPT_DIR"
+npm run build
 
 # =========================================================================
-# 4. Autostart: app
+# 4. Make scripts executable
+# =========================================================================
+chmod +x "$SCRIPT_DIR/run.sh"
+chmod +x "$SCRIPT_DIR/build.sh"
+
+# =========================================================================
+# 5. Autostart: app
 # =========================================================================
 echo ""
 echo "=== Setting up app autostart ==="
@@ -72,7 +81,7 @@ EOF
 echo "  ✓ Autostart entry written to ~/.config/autostart/app.desktop"
 
 # =========================================================================
-# 5. Keyboard layouts: English, Hebrew, Arabic
+# 6. Keyboard layouts: English, Hebrew, Arabic
 # =========================================================================
 echo ""
 echo "=== Configuring keyboard layouts ==="
@@ -90,6 +99,7 @@ echo ""
 echo "What was done:"
 echo "  [Node/npm]     Installed/verified Node.js >= $REQUIRED_NODE_MAJOR"
 echo "  [App]          npm run setup completed"
+echo "  [Build]        Client built for production (client/dist)"
 echo "  [Autostart]    Will auto-launch via run.sh on login"
 echo "  [Keyboard]     Layouts set to English, Hebrew, Arabic"
 echo ""

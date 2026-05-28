@@ -6,7 +6,11 @@ cd "$SCRIPT_DIR"
 
 URL="http://127.0.0.1:5173/create-post"
 
-npm run dev &
+while true; do
+  npm run prod
+  echo "Server exited — restarting in 2s..."
+  sleep 2
+done &
 DEV_PID=$!
 
 echo "Waiting for dev server at $URL..."
@@ -63,7 +67,15 @@ CHROMIUM_FLAGS=(
   --disable-background-timer-throttling
 )
 
-$CHROMIUM_CMD "${CHROMIUM_FLAGS[@]}" --user-data-dir=/tmp/chromium-kiosk "$URL" &
+chromium_watch() {
+  while true; do
+    $CHROMIUM_CMD "$@"
+    echo "Chromium exited (${*: -1}) — restarting in 2s..."
+    sleep 2
+  done
+}
+
+chromium_watch "${CHROMIUM_FLAGS[@]}" --user-data-dir=/tmp/chromium-kiosk "$URL" &
 
 # Open second Chromium window on the screen above the primary
 SECOND_URL="http://127.0.0.1:5173"
@@ -74,7 +86,7 @@ SECOND_OFFSET=$(xrandr --query 2>/dev/null \
 
 if [ -n "$SECOND_OFFSET" ]; then
   echo "Launching second Chromium on screen at offset $SECOND_OFFSET"
-  $CHROMIUM_CMD "${CHROMIUM_FLAGS[@]}" \
+  chromium_watch "${CHROMIUM_FLAGS[@]}" \
     --user-data-dir=/tmp/chromium-kiosk-2 \
     --window-position="$SECOND_OFFSET" \
     "$SECOND_URL" &

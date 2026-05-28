@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 const serverDir = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const dataDir = path.join(serverDir, "data");
 const postsFile = path.join(dataDir, "posts.json");
+const submissionsFile = path.join(dataDir, "submissions.json");
 
 export const imagesDir = path.join(serverDir, "dalleImages");
 
@@ -91,6 +92,19 @@ async function writePosts(posts) {
   await fs.writeFile(postsFile, `${JSON.stringify(posts, null, 2)}\n`);
 }
 
+async function logSubmission(entry) {
+  await ensureStorage();
+  let log = [];
+  try {
+    const raw = await fs.readFile(submissionsFile, "utf8");
+    if (raw.trim()) log = JSON.parse(raw);
+  } catch {
+    // file doesn't exist yet — start fresh
+  }
+  log.push(entry);
+  await fs.writeFile(submissionsFile, `${JSON.stringify(log, null, 2)}\n`);
+}
+
 function safeFileNamePart(value) {
   const safe = value
     .trim()
@@ -142,7 +156,7 @@ export async function createPost({ name, prompt, photo }, req) {
   await ensureStorage();
   await fs.writeFile(path.join(imagesDir, fileName), buffer);
 
-  const posts = await readPosts();
+  let posts = await readPosts();
   const post = {
     _id: crypto.randomUUID(),
     name: trimmedName,
@@ -151,7 +165,21 @@ export async function createPost({ name, prompt, photo }, req) {
     createdAt: new Date().toISOString(),
   };
 
+  await logSubmission({ name: trimmedName, prompt: trimmedPrompt, createdAt: post.createdAt });
+
   posts.push(post);
+
+  const MAX_POSTS = 1000;
+  if (posts.length > MAX_POSTS) {
+    const sorted = posts.slice().sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+    const toDelete = sorted.slice(0, posts.length - MAX_POSTS);
+    const toDeleteIds = new Set(toDelete.map((p) => p._id));
+    posts = posts.filter((p) => !toDeleteIds.has(p._id));
+    await Promise.allSettled(
+      toDelete.map((p) => fs.unlink(path.join(imagesDir, p.fileName)))
+    );
+  }
+
   await writePosts(posts);
 
   return serializePost(post, req);

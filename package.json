@@ -5,8 +5,10 @@
   "type": "module",
   "scripts": {
     "setup": "node scripts/setup-local.mjs",
+    "build": "npm run build --prefix client",
     "dev": "node scripts/start-local.mjs",
     "start": "node scripts/start-local.mjs",
+    "prod": "node scripts/start-prod.mjs",
     "package": "node scripts/package-local.mjs"
   }
 }
