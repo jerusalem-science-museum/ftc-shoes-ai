@@ -95,7 +95,7 @@ EOF
 echo "  ✓ Autostart entry written to ~/.config/autostart/app.desktop"
 
 # =========================================================================
-# 7. Keyboard layouts: English, Hebrew, Arabic
+# 7. Keyboard layouts: English, Hebrew, Arabic, alt+shift for switch lang
 # =========================================================================
 echo ""
 echo "=== Configuring keyboard layouts ==="
