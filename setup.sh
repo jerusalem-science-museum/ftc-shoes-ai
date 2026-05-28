@@ -100,6 +100,8 @@ echo "  ✓ Autostart entry written to ~/.config/autostart/app.desktop"
 echo ""
 echo "=== Configuring keyboard layouts ==="
 gsettings set org.cinnamon.desktop.input-sources sources "[('xkb', 'us'), ('xkb', 'il'), ('xkb', 'ara')]"
+gsettings set org.cinnamon.desktop.keybindings.wm switch-input-source "['<Super>space', '<Alt>Shift_L']"
+
 echo "  ✓ Keyboard layouts set to: English (us), Hebrew (il), Arabic (ara)"
 
 # =========================================================================
