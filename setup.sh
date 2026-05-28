@@ -55,13 +55,27 @@ cd "$SCRIPT_DIR"
 npm run build
 
 # =========================================================================
-# 4. Make scripts executable
+# 4. Remove unclutter (not needed for this exhibit)
+# =========================================================================
+echo ""
+echo "=== Removing unclutter ==="
+if [ -f /etc/default/unclutter ]; then
+    sudo rm /etc/default/unclutter
+    echo "  ✓ Removed /etc/default/unclutter"
+fi
+if [ -f ~/.config/autostart/unclutter.desktop ]; then
+    rm ~/.config/autostart/unclutter.desktop
+    echo "  ✓ Removed ~/.config/autostart/unclutter.desktop"
+fi
+
+# =========================================================================
+# 5. Make scripts executable
 # =========================================================================
 chmod +x "$SCRIPT_DIR/run.sh"
 chmod +x "$SCRIPT_DIR/build.sh"
 
 # =========================================================================
-# 5. Autostart: app
+# 6. Autostart: app
 # =========================================================================
 echo ""
 echo "=== Setting up app autostart ==="
@@ -81,7 +95,7 @@ EOF
 echo "  ✓ Autostart entry written to ~/.config/autostart/app.desktop"
 
 # =========================================================================
-# 6. Keyboard layouts: English, Hebrew, Arabic
+# 7. Keyboard layouts: English, Hebrew, Arabic
 # =========================================================================
 echo ""
 echo "=== Configuring keyboard layouts ==="
@@ -100,6 +114,7 @@ echo "What was done:"
 echo "  [Node/npm]     Installed/verified Node.js >= $REQUIRED_NODE_MAJOR"
 echo "  [App]          npm run setup completed"
 echo "  [Build]        Client built for production (client/dist)"
+echo "  [Unclutter]    Removed unclutter config/autostart if present"
 echo "  [Autostart]    Will auto-launch via run.sh on login"
 echo "  [Keyboard]     Layouts set to English, Hebrew, Arabic"
 echo ""
